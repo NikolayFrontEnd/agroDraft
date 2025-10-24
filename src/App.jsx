@@ -28,8 +28,8 @@ export const InputSearch = () =>{
   )
 }
 
-export const CheckboxBlock = ({allFruits , checkboxesDisabled , setCheckboxesDisabled}) =>{
-const [addedFruits, setAddedfruits] = useState([]);
+export const CheckboxBlock = ({allFruits , checkboxesDisabled}) =>{
+/* const [addedFruits, setAddedfruits] = useState([]);
                 
 const fn = (fruit, event) =>{
     if(addedFruits.includes(fruit)){
@@ -49,7 +49,7 @@ useEffect(() => {
   }
 }, [addedFruits]);
 
-console.log(addedFruits);
+console.log(addedFruits); */
 
   return(
     <>
@@ -123,7 +123,7 @@ const [checkboxesDisabled, setCheckboxesDisabled] = useState(false);
 <InputSearch/>
 
           {/* Checkboxes */}
-<CheckboxBlock allFruits = {allFruits} checkboxesDisabled ={checkboxesDisabled} setCheckboxesDisabled = {setCheckboxesDisabled}/>
+<CheckboxBlock allFruits = {allFruits} checkboxesDisabled ={checkboxesDisabled} />
 
           <div className="selected-count">
             Selected: 0 / 16
