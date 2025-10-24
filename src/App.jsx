@@ -87,7 +87,6 @@ export const CheckboxBlock = ({
 };
 
 function App() {
-  const [isDisabled, setIsDisabled] = useState(false);      
   const [selectedFruits, setSelectedFruits] = useState([]);     
 
   const handleToggleFruit = fruit => {                       
@@ -99,9 +98,8 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    setIsDisabled(selectedFruits.length >= 5);
-  }, [selectedFruits]);
+const isDisabled = selectedFruits.length >= 5;
+
 
   console.log(selectedFruits);
 
