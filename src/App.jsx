@@ -28,8 +28,7 @@ export const InputSearch = () =>{
   )
 }
 
-export const CheckboxBlock = ({allFruits , checkboxesDisabled , setCheckboxesDisabled , 
-                                }) =>{
+export const CheckboxBlock = ({allFruits , checkboxesDisabled , setCheckboxesDisabled}) =>{
 const [addedFruits, setAddedfruits] = useState([]);
                 
 const fn = (fruit, event) =>{
@@ -126,7 +125,7 @@ const [fruitsChoosen, setFruitsChoones] = useState(1);
 <InputSearch/>
 
           {/* Checkboxes */}
-<CheckboxBlock allFruits = {allFruits} checkboxesDisabled ={checkboxesDisabled} setCheckboxesDisabled = {setCheckboxesDisabled} fruitsChoosen = {fruitsChoosen} setFruitsChoones = {setFruitsChoones}/>
+<CheckboxBlock allFruits = {allFruits} checkboxesDisabled ={checkboxesDisabled} setCheckboxesDisabled = {setCheckboxesDisabled}/>
 
           <div className="selected-count">
             Selected: 0 / 16
