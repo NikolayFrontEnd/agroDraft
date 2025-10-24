@@ -28,19 +28,19 @@ export const InputSearch = () =>{
   )
 }
 
-export const FruitTable = ({selectedFruits, items}) =>{
+export const FruitTable = ({selectedFruits}) =>{
 
   return(
     <>
             <main className="results-section">
           <div className="chemicals-grid">
-            {Object.entries(items).map(([chemical, fruitsMap]) => (
+            {Object.entries(fruits).map(([chemical, fruitsMap]) => (
               <div key={chemical} className="chemical-card">
                 <h2 className="chemical-title">{chemical}</h2>
                 <ul className="fruits-list">
                   {Object.entries(fruitsMap)
- 
-  .map(([fruit, limit]) => (
+.filter(([fruit]) => selectedFruits.includes(fruit))
+.map(([fruit, limit]) => (
                     <li key={fruit} className="fruit-item">
                       <span className="fruit-name">
                         {fruit.replace(/_/g, ' ')}
@@ -109,10 +109,7 @@ function App() {
     'technical_grapes', 'strawberry', 'blackberry', 'raspberry', 'blueberry'
   ];
 
-const dataArray = Object.entries(fruits).map(([chemical, fruits]) => ({
-  chemical,
-  ...fruits
-}));
+
 
 
 
@@ -140,7 +137,7 @@ const dataArray = Object.entries(fruits).map(([chemical, fruits]) => ({
           </div>
         </aside>
 
-        <FruitTable selectedFruits = {selectedFruits} items = {dataArray}/>
+        <FruitTable selectedFruits = {selectedFruits} />
       </div>
     </div>
   );
