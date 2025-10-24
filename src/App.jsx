@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import fruits from '../lmr.json';
 import './a.scss';
 
-const arr = ["apple", 'pear'];
-
 export const Header = () =>{
   return(
     <>
@@ -16,7 +14,8 @@ export const Header = () =>{
   )
 }
 
-export const InputSearch = () =>{
+export const InputSearch = ({handleSearch}) =>{
+
   return(
     <>
           <div className="search-container">
@@ -24,20 +23,21 @@ export const InputSearch = () =>{
               type="text"
               className="search-input"
               placeholder="🔍 Search fruits..."
+              onChange = {handleSearch}
             />
           </div>
     </>
   )
 }
 
-export const FruitTable = ({selectedFruits}) =>{
+export const FruitTable = ({selectedFruits, result}) =>{
 
   return(
     <>
             <main className="results-section">
           <div className="chemicals-grid">
             {Object.entries(fruits)
-.filter(([chemical])=>chemical === "acetamiprid")
+.filter(([chemical])=>result.includes(chemical)) /* */
 .map(([chemical, fruitsMap]) => (
               <div key={chemical} className="chemical-card">
                 <h2 className="chemical-title">{chemical}</h2>
@@ -113,6 +113,21 @@ function App() {
     'technical_grapes', 'strawberry', 'blackberry', 'raspberry', 'blueberry'
   ];
 
+const [result, setResult] = useState([]);
+
+const handleSearch = (e) => {
+  const query = e.target.value; 
+  const chemicals = Object.keys(fruits); 
+  
+  const results = chemicals.filter(name => name.startsWith(query));
+  setResult(results);
+  if (results.length > 0) {
+    console.log('Найденные химикаты:', results);
+  } else {
+    console.log('Такого химиката нет');
+  }
+};
+console.log(result);
   return (
     <div className="app-container">
       <Header />
@@ -123,7 +138,9 @@ function App() {
             <button className="select-all-btn">Select All</button>
           </div>
 
-          <InputSearch />
+          <InputSearch 
+          handleSearch = {handleSearch}
+          />
 
           <CheckboxBlock
             allFruits={allFruits}
@@ -137,7 +154,7 @@ function App() {
           </div>
         </aside>
 
-        <FruitTable selectedFruits = {selectedFruits} />
+        <FruitTable selectedFruits = {selectedFruits} result = {result}/>
       </div>
     </div>
   );
