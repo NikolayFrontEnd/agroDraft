@@ -28,46 +28,6 @@ export const InputSearch = () =>{
   )
 }
 
-export const CheckboxBlock = ({allFruits , checkboxesDisabled}) =>{
-/* const [addedFruits, setAddedfruits] = useState([]);
-                
-const fn = (fruit, event) =>{
-    if(addedFruits.includes(fruit)){
-console.log("We have that fruit!");
-setAddedfruits(prev=>prev.filter(f=>f!==fruit))
-  }
-  else{      
-setAddedfruits([...addedFruits, fruit]);
-  }
- }
-useEffect(() => {
-  if (addedFruits.length >= 5) {
-    setCheckboxesDisabled(true);
-  }
-  if(addedFruits.length < 5){
-        setCheckboxesDisabled(false);
-  }
-}, [addedFruits]);
-
-console.log(addedFruits); */
-
-  return(
-    <>
-              <div className="checkboxes-container">
-            {allFruits.map(fruit => (
-              <label key={fruit} className="checkbox-label">
-                <input onChange={(event)=>fn(fruit, event)} type="checkbox" className="checkbox-input" disabled={addedFruits.includes(fruit) ? false : checkboxesDisabled}/>
-                <span className="checkbox-custom"></span>
-                <span className="checkbox-text">
-                  {fruit.replace(/_/g, ' ')}
-                </span>
-              </label>
-            ))}
-          </div>
-    </>
-  )
-}
-
 export const FruitTable = () =>{
   
   return(
@@ -98,11 +58,54 @@ export const FruitTable = () =>{
   )
 }
 
+export const CheckboxBlock = ({
+  allFruits,
+  isDisabled,          
+  onToggleFruit,    
+  selectedFruits    
+}) => {
+  return (
+    <>
+      <div className="checkboxes-container">
+        {allFruits.map(fruit => (
+          <label key={fruit} className="checkbox-label">
+            <input
+              onChange={() => onToggleFruit(fruit)}
+              type="checkbox"
+              className="checkbox-input"
+              disabled={selectedFruits.includes(fruit) ? false : isDisabled}
+            />
+            <span className="checkbox-custom" />
+            <span className="checkbox-text">
+              {fruit.replace(/_/g, ' ')}
+            </span>
+          </label>
+        ))}
+      </div>
+    </>
+  );
+};
+
 function App() {
+  const [isDisabled, setIsDisabled] = useState(false);      
+  const [selectedFruits, setSelectedFruits] = useState([]);     
 
-const [checkboxesDisabled, setCheckboxesDisabled] = useState(false);
+  const handleToggleFruit = fruit => {                       
+    if (selectedFruits.includes(fruit)) {
+      console.log('We have that fruit!');
+      setSelectedFruits(prev => prev.filter(f => f !== fruit));
+    } else {
+      setSelectedFruits([...selectedFruits, fruit]);
+    }
+  };
 
-    const allFruits = [
+  useEffect(() => {
+    setIsDisabled(selectedFruits.length >= 5);
+  }, [selectedFruits]);
+
+  console.log(selectedFruits);
+
+  const allFruits = [
     'almond', 'hazelnut', 'nuts', 'apple', 'pear', 'quince',
     'apricot', 'cherry', 'peach', 'plum', 'table_grapes',
     'technical_grapes', 'strawberry', 'blackberry', 'raspberry', 'blueberry'
@@ -110,29 +113,29 @@ const [checkboxesDisabled, setCheckboxesDisabled] = useState(false);
 
   return (
     <div className="app-container">
-      <Header/>
+      <Header />
       <div className="app-content">
-        {/* FILTER SECTION */}
         <aside className="filter-section">
           <div className="filter-header">
             <h2>Fruits Filter</h2>
             <button className="select-all-btn">Select All</button>
           </div>
 
-          {/* Search Input */}
-<InputSearch/>
+          <InputSearch />
 
-          {/* Checkboxes */}
-<CheckboxBlock allFruits = {allFruits} checkboxesDisabled ={checkboxesDisabled} />
+          <CheckboxBlock
+            allFruits={allFruits}
+            isDisabled={isDisabled}
+            onToggleFruit={handleToggleFruit}
+            selectedFruits={selectedFruits}
+          />
 
           <div className="selected-count">
-            Selected: 0 / 16
+            Selected: {selectedFruits.length} / {allFruits.length}
           </div>
         </aside>
 
-        {/* RESULTS SECTION */}
-<FruitTable/>
-
+        <FruitTable />
       </div>
     </div>
   );
