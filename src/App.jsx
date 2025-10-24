@@ -30,8 +30,6 @@ export const InputSearch = () =>{
 
 export const CheckboxBlock = ({allFruits , checkboxesDisabled , setCheckboxesDisabled , 
                                fruitsChoosen , setFruitsChoones}) =>{
-const [addedFruits, setAddedfruits] = useState([]);
-                
 
 
   return(
