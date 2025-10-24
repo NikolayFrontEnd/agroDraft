@@ -28,18 +28,18 @@ export const InputSearch = () =>{
   )
 }
 
-export const FruitTable = () =>{
-  const arr = ["apple", "almond"]
+export const FruitTable = ({selectedFruits, items}) =>{
+
   return(
     <>
             <main className="results-section">
           <div className="chemicals-grid">
-            {Object.entries(fruits).map(([chemical, fruitsMap]) => (
+            {Object.entries(items).map(([chemical, fruitsMap]) => (
               <div key={chemical} className="chemical-card">
                 <h2 className="chemical-title">{chemical}</h2>
                 <ul className="fruits-list">
                   {Object.entries(fruitsMap)
-.filter(([fruit]) => arr.includes(fruit))  
+ 
   .map(([fruit, limit]) => (
                     <li key={fruit} className="fruit-item">
                       <span className="fruit-name">
@@ -100,16 +100,21 @@ function App() {
     }
   };
 
-const isDisabled = selectedFruits.length >= 5;
+  const isDisabled = selectedFruits.length >= 5;
 
-
-  console.log(selectedFruits);
 
   const allFruits = [
     'almond', 'hazelnut', 'nuts', 'apple', 'pear', 'quince',
     'apricot', 'cherry', 'peach', 'plum', 'table_grapes',
     'technical_grapes', 'strawberry', 'blackberry', 'raspberry', 'blueberry'
   ];
+
+const dataArray = Object.entries(fruits).map(([chemical, fruits]) => ({
+  chemical,
+  ...fruits
+}));
+
+
 
   return (
     <div className="app-container">
@@ -135,7 +140,7 @@ const isDisabled = selectedFruits.length >= 5;
           </div>
         </aside>
 
-        <FruitTable selectedFruits = {selectedFruits}/>
+        <FruitTable selectedFruits = {selectedFruits} items = {dataArray}/>
       </div>
     </div>
   );
