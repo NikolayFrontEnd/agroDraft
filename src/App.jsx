@@ -80,7 +80,6 @@ export const FruitTable = () =>{
                 <h2 className="chemical-title">{chemical}</h2>
                 <ul className="fruits-list">
                   {Object.entries(fruitsMap)
-/* .filter(([fruit]) => fruit === 'apple') */
   .map(([fruit, limit]) => (
                     <li key={fruit} className="fruit-item">
                       <span className="fruit-name">
