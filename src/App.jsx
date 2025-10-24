@@ -28,8 +28,8 @@ export const InputSearch = () =>{
   )
 }
 
-export const FruitTable = () =>{
-  
+export const FruitTable = ({selectedFruits}) =>{
+  const arr = ["apple", "almond"]
   return(
     <>
             <main className="results-section">
@@ -39,6 +39,7 @@ export const FruitTable = () =>{
                 <h2 className="chemical-title">{chemical}</h2>
                 <ul className="fruits-list">
                   {Object.entries(fruitsMap)
+  .filter((fruits)=>selectedFruits.includes(fruits))
   .map(([fruit, limit]) => (
                     <li key={fruit} className="fruit-item">
                       <span className="fruit-name">
@@ -73,7 +74,8 @@ export const CheckboxBlock = ({
               onChange={() => onToggleFruit(fruit)}
               type="checkbox"
               className="checkbox-input"
-              disabled={selectedFruits.includes(fruit) ? false : isDisabled}
+disabled={isDisabled && !selectedFruits.includes(fruit)}
+
             />
             <span className="checkbox-custom" />
             <span className="checkbox-text">
@@ -133,7 +135,7 @@ const isDisabled = selectedFruits.length >= 5;
           </div>
         </aside>
 
-        <FruitTable />
+        <FruitTable selectedFruits = {selectedFruits}/>
       </div>
     </div>
   );
