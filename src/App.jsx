@@ -30,7 +30,27 @@ export const InputSearch = () =>{
 
 export const CheckboxBlock = ({allFruits , checkboxesDisabled , setCheckboxesDisabled , 
                                fruitsChoosen , setFruitsChoones}) =>{
+const [addedFruits, setAddedfruits] = useState([]);
+                
+const fn = (fruit, event) =>{
+    if(addedFruits.includes(fruit)){
+console.log("We have that fruit!");
+setAddedfruits(prev=>prev.filter(f=>f!==fruit))
+  }
+  else{      
+setAddedfruits([...addedFruits, fruit]);
+  }
+ }
+useEffect(() => {
+  if (addedFruits.length >= 5) {
+    setCheckboxesDisabled(true);
+  }
+  if(addedFruits.length < 5){
+        setCheckboxesDisabled(false);
+  }
+}, [addedFruits]);
 
+console.log(addedFruits);
 
   return(
     <>
