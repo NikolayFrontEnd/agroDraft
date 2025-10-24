@@ -28,7 +28,7 @@ export const InputSearch = () =>{
   )
 }
 
-export const FruitTable = ({selectedFruits}) =>{
+export const FruitTable = () =>{
   const arr = ["apple", "almond"]
   return(
     <>
@@ -39,7 +39,7 @@ export const FruitTable = ({selectedFruits}) =>{
                 <h2 className="chemical-title">{chemical}</h2>
                 <ul className="fruits-list">
                   {Object.entries(fruitsMap)
-  .filter((fruits)=>selectedFruits.includes(fruits))
+.filter(([fruit]) => arr.includes(fruit))  
   .map(([fruit, limit]) => (
                     <li key={fruit} className="fruit-item">
                       <span className="fruit-name">
