@@ -1,9 +1,8 @@
 // App.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import fruits from '../lmr.json';
 import './a.scss';
 
-// ---------------- Header ----------------
 export const Header = () => {
   return (
     <>
@@ -15,7 +14,6 @@ export const Header = () => {
   );
 };
 
-// ---------------- Search Input ----------------
 export const InputSearch = ({ handleChemicalSearch }) => {
   return (
     <>
@@ -31,7 +29,6 @@ export const InputSearch = ({ handleChemicalSearch }) => {
   );
 };
 
-// ---------------- Fruit Table ----------------
 export const FruitTable = ({ selectedFruitsList, filteredChemicals }) => {
   return (
     <>
@@ -62,7 +59,6 @@ export const FruitTable = ({ selectedFruitsList, filteredChemicals }) => {
   );
 };
 
-// ---------------- Checkbox Block ----------------
 export const CheckboxBlock = ({
   allFruits,
   isFruitSelectionDisabled,
@@ -92,10 +88,14 @@ export const CheckboxBlock = ({
   );
 };
 
-// ---------------- App ----------------
 function App() {
-  const [selectedFruitsList, setSelectedFruitsList] = useState([]); // выбранные фрукты
-  const [filteredChemicals, setFilteredChemicals] = useState([]); // отфильтрованные химикаты
+  const [selectedFruitsList, setSelectedFruitsList] = useState([]);
+  const [filteredChemicals, setFilteredChemicals] = useState([]);
+
+  // при загрузке приложения показываем все химикаты
+  useEffect(() => {
+    setFilteredChemicals(Object.keys(fruits));
+  }, []);
 
   const toggleFruitSelection = (fruit) => {
     if (selectedFruitsList.includes(fruit)) {
@@ -131,9 +131,16 @@ function App() {
     const query = e.target.value.toLowerCase();
     const chemicalNames = Object.keys(fruits);
 
+    // если поле пустое → показываем все химикаты
+    if (query.trim() === '') {
+      setFilteredChemicals(chemicalNames);
+      return;
+    }
+
     const matches = chemicalNames.filter((name) =>
       name.startsWith(query)
     );
+
     setFilteredChemicals(matches);
 
     if (matches.length > 0) {
