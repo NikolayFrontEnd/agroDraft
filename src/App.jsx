@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import fruits from '../lmr.json';
 import './a.scss';
 
+const arr = ["apple", 'pear'];
+
 export const Header = () =>{
   return(
     <>
@@ -34,7 +36,9 @@ export const FruitTable = ({selectedFruits}) =>{
     <>
             <main className="results-section">
           <div className="chemicals-grid">
-            {Object.entries(fruits).map(([chemical, fruitsMap]) => (
+            {Object.entries(fruits)
+.filter(([chemical])=>chemical === "acetamiprid")
+.map(([chemical, fruitsMap]) => (
               <div key={chemical} className="chemical-card">
                 <h2 className="chemical-title">{chemical}</h2>
                 <ul className="fruits-list">
@@ -108,10 +112,6 @@ function App() {
     'apricot', 'cherry', 'peach', 'plum', 'table_grapes',
     'technical_grapes', 'strawberry', 'blackberry', 'raspberry', 'blueberry'
   ];
-
-
-
-
 
   return (
     <div className="app-container">
