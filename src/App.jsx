@@ -1,90 +1,90 @@
 // App.jsx
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import fruits from '../lmr.json';
 import './a.scss';
 
-export const Header = () =>{
-  return(
+// ---------------- Header ----------------
+export const Header = () => {
+  return (
     <>
       <header className="app-header">
         <h1>🍎 Chemical & Fruit Limits Database</h1>
         <p>Select fruits to filter chemicals</p>
       </header>
     </>
-  )
-}
+  );
+};
 
-export const InputSearch = ({handleSearch}) =>{
-
-  return(
+// ---------------- Search Input ----------------
+export const InputSearch = ({ handleChemicalSearch }) => {
+  return (
     <>
-          <div className="search-container">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="🔍 Search fruits..."
-              onChange = {handleSearch}
-            />
-          </div>
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="🔍 Search chemicals..."
+          onChange={handleChemicalSearch}
+        />
+      </div>
     </>
-  )
-}
+  );
+};
 
-export const FruitTable = ({selectedFruits, result}) =>{
-
-  return(
+// ---------------- Fruit Table ----------------
+export const FruitTable = ({ selectedFruitsList, filteredChemicals }) => {
+  return (
     <>
-            <main className="results-section">
-          <div className="chemicals-grid">
-            {Object.entries(fruits)
-.filter(([chemical])=>result.includes(chemical)) /* */
-.map(([chemical, fruitsMap]) => (
+      <main className="results-section">
+        <div className="chemicals-grid">
+          {Object.entries(fruits)
+            .filter(([chemical]) => filteredChemicals.includes(chemical))
+            .map(([chemical, fruitsMap]) => (
               <div key={chemical} className="chemical-card">
                 <h2 className="chemical-title">{chemical}</h2>
                 <ul className="fruits-list">
                   {Object.entries(fruitsMap)
-.filter(([fruit]) => selectedFruits.includes(fruit))
-.map(([fruit, limit]) => (
-                    <li key={fruit} className="fruit-item">
-                      <span className="fruit-name">
-                        {fruit.replace(/_/g, ' ')}
-                      </span>
-                      <span className="fruit-limit">
-                        {limit ?? '—'}
-                      </span>
-                    </li>
-                  ))}
+                    .filter(([fruit]) => selectedFruitsList.includes(fruit))
+                    .map(([fruit, limit]) => (
+                      <li key={fruit} className="fruit-item">
+                        <span className="fruit-name">
+                          {fruit.replace(/_/g, ' ')}
+                        </span>
+                        <span className="fruit-limit">{limit ?? '—'}</span>
+                      </li>
+                    ))}
                 </ul>
               </div>
             ))}
-          </div>
-        </main>
+        </div>
+      </main>
     </>
-  )
-}
+  );
+};
 
+// ---------------- Checkbox Block ----------------
 export const CheckboxBlock = ({
   allFruits,
-  isDisabled,          
-  onToggleFruit,    
-  selectedFruits    
+  isFruitSelectionDisabled,
+  onFruitToggle,
+  selectedFruitsList,
 }) => {
   return (
     <>
       <div className="checkboxes-container">
-        {allFruits.map(fruit => (
+        {allFruits.map((fruit) => (
           <label key={fruit} className="checkbox-label">
             <input
-              onChange={() => onToggleFruit(fruit)}
+              onChange={() => onFruitToggle(fruit)}
               type="checkbox"
               className="checkbox-input"
-disabled={isDisabled && !selectedFruits.includes(fruit)}
-
+              disabled={
+                isFruitSelectionDisabled &&
+                !selectedFruitsList.includes(fruit)
+              }
             />
             <span className="checkbox-custom" />
-            <span className="checkbox-text">
-              {fruit.replace(/_/g, ' ')}
-            </span>
+            <span className="checkbox-text">{fruit.replace(/_/g, ' ')}</span>
           </label>
         ))}
       </div>
@@ -92,42 +92,59 @@ disabled={isDisabled && !selectedFruits.includes(fruit)}
   );
 };
 
+// ---------------- App ----------------
 function App() {
-  const [selectedFruits, setSelectedFruits] = useState([]);     
+  const [selectedFruitsList, setSelectedFruitsList] = useState([]); // выбранные фрукты
+  const [filteredChemicals, setFilteredChemicals] = useState([]); // отфильтрованные химикаты
 
-  const handleToggleFruit = fruit => {                       
-    if (selectedFruits.includes(fruit)) {
+  const toggleFruitSelection = (fruit) => {
+    if (selectedFruitsList.includes(fruit)) {
       console.log('We have that fruit!');
-      setSelectedFruits(prev => prev.filter(f => f !== fruit));
+      setSelectedFruitsList((prev) => prev.filter((f) => f !== fruit));
     } else {
-      setSelectedFruits([...selectedFruits, fruit]);
+      setSelectedFruitsList([...selectedFruitsList, fruit]);
     }
   };
 
-  const isDisabled = selectedFruits.length >= 5;
-
+  const isFruitSelectionDisabled = selectedFruitsList.length >= 5;
 
   const allFruits = [
-    'almond', 'hazelnut', 'nuts', 'apple', 'pear', 'quince',
-    'apricot', 'cherry', 'peach', 'plum', 'table_grapes',
-    'technical_grapes', 'strawberry', 'blackberry', 'raspberry', 'blueberry'
+    'almond',
+    'hazelnut',
+    'nuts',
+    'apple',
+    'pear',
+    'quince',
+    'apricot',
+    'cherry',
+    'peach',
+    'plum',
+    'table_grapes',
+    'technical_grapes',
+    'strawberry',
+    'blackberry',
+    'raspberry',
+    'blueberry',
   ];
 
-const [result, setResult] = useState([]);
+  const handleChemicalSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    const chemicalNames = Object.keys(fruits);
 
-const handleSearch = (e) => {
-  const query = e.target.value; 
-  const chemicals = Object.keys(fruits); 
-  
-  const results = chemicals.filter(name => name.startsWith(query));
-  setResult(results);
-  if (results.length > 0) {
-    console.log('Найденные химикаты:', results);
-  } else {
-    console.log('Такого химиката нет');
-  }
-};
-console.log(result);
+    const matches = chemicalNames.filter((name) =>
+      name.startsWith(query)
+    );
+    setFilteredChemicals(matches);
+
+    if (matches.length > 0) {
+      console.log('Найденные химикаты:', matches);
+    } else {
+      console.log('Такого химиката нет');
+    }
+  };
+
+  console.log(filteredChemicals);
+
   return (
     <div className="app-container">
       <Header />
@@ -138,23 +155,24 @@ console.log(result);
             <button className="select-all-btn">Select All</button>
           </div>
 
-          <InputSearch 
-          handleSearch = {handleSearch}
-          />
+          <InputSearch handleChemicalSearch={handleChemicalSearch} />
 
           <CheckboxBlock
             allFruits={allFruits}
-            isDisabled={isDisabled}
-            onToggleFruit={handleToggleFruit}
-            selectedFruits={selectedFruits}
+            isFruitSelectionDisabled={isFruitSelectionDisabled}
+            onFruitToggle={toggleFruitSelection}
+            selectedFruitsList={selectedFruitsList}
           />
 
           <div className="selected-count">
-            Selected: {selectedFruits.length} / {allFruits.length}
+            Selected: {selectedFruitsList.length} / {allFruits.length}
           </div>
         </aside>
 
-        <FruitTable selectedFruits = {selectedFruits} result = {result}/>
+        <FruitTable
+          selectedFruitsList={selectedFruitsList}
+          filteredChemicals={filteredChemicals}
+        />
       </div>
     </div>
   );
