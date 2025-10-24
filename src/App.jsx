@@ -102,8 +102,6 @@ function App() {
 
 const [checkboxesDisabled, setCheckboxesDisabled] = useState(false);
 
-const [fruitsChoosen, setFruitsChoones] = useState(1);
-
     const allFruits = [
     'almond', 'hazelnut', 'nuts', 'apple', 'pear', 'quince',
     'apricot', 'cherry', 'peach', 'plum', 'table_grapes',
