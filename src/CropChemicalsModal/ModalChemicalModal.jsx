@@ -6,7 +6,12 @@ import s from "./ModalChemicalModal.module.scss";
 import { ModalInfo } from "./ModalInfo";
 import { SearchInput } from "./SearchInput";
 
-const ModalChemicalModal = ({ isOpen = false, onClose = () => {} }) => {
+const ModalChemicalModal = ({ 
+isOpen = false, 
+onClose = () => {},
+chemicals = [],
+allFruits = [], 
+fruitsData = {}}) => {
   if (!isOpen) return null; 
 
   return (
@@ -20,10 +25,14 @@ const ModalChemicalModal = ({ isOpen = false, onClose = () => {} }) => {
           <SearchInput />
           <div className={s.cultureSelectWrapper}>
             <CultureSelect />
-{/*             <CultureDropdown/>
- */}          </div>
+             <CultureDropdown/>
+          </div>
         </div>
-        <ChemicalTable />
+        <ChemicalTable 
+          chemicals={chemicals}
+          allFruits={allFruits}
+          fruitsData={fruitsData}
+        />
       </div>
     </div>
   );

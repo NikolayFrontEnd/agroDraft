@@ -1,12 +1,6 @@
-import fruits from '../../../lmr.json';
 import s from './index.module.scss';
 
-export const ChemicalTable = () => {
-  const chemicals = Object.keys(fruits);
-  const allFruits = chemicals.length > 0 
-    ? Object.keys(fruits[chemicals[0]]) 
-    : [];
-
+export const ChemicalTable = ({ chemicals = [], allFruits = [], fruitsData = {} }) => {
   return (
     <div className={s.tableWrapper}>
       <div className={s.table}>
@@ -24,8 +18,7 @@ export const ChemicalTable = () => {
               <div className={s.table__chemicalCell}>{chemical}</div>
               {allFruits.map((fruit) => (
                 <div key={fruit} className={s.table__cell}>
-                  {fruits[chemical][fruit] ?? 'Нет МДУ'}
-                  
+                  {fruitsData[chemical][fruit] ?? 'Нет МДУ'}
                 </div>
               ))}
             </div>

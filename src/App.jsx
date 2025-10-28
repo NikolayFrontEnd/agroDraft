@@ -109,7 +109,7 @@ function App() {
 
   const isFruitSelectionDisabled = selectedFruitsList.length >= 5;
 
-  const allFruits = [
+/*   const allFruits = [
     'almond',
     'hazelnut',
     'nuts',
@@ -126,7 +126,7 @@ function App() {
     'blackberry',
     'raspberry',
     'blueberry',
-  ];
+  ]; */
 
   const handleChemicalSearch = (e) => {
     const query = e.target.value.toLowerCase();
@@ -175,13 +175,17 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       </div>
     );
   };
-
+const chemicals = Object.keys(fruits);
+const allFruits = chemicals.length > 0 ? Object.keys(fruits[chemicals[0]]) : [];
   return (
     <>
       <MainPage />
       <ModalChemicalModal 
         isOpen={isModalOpen} 
         onClose={handleCloseModal} 
+        chemicals={chemicals}
+        allFruits={allFruits}
+        fruitsData={fruits}
       />
     </>
   );
