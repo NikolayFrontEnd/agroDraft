@@ -1,7 +1,9 @@
-// App.jsx
 import { useState, useEffect } from 'react';
 import fruits from '../lmr.json';
 import './a.scss';
+import s from './style.module.scss'
+import ModalChemicalModal from './CropChemicalsModal/ModalChemicalModal';
+
 
 export const Header = () => {
   return (
@@ -92,7 +94,6 @@ function App() {
   const [selectedFruitsList, setSelectedFruitsList] = useState([]);
   const [filteredChemicals, setFilteredChemicals] = useState([]);
 
-  // при загрузке приложения показываем все химикаты
   useEffect(() => {
     setFilteredChemicals(Object.keys(fruits));
   }, []);
@@ -131,7 +132,6 @@ function App() {
     const query = e.target.value.toLowerCase();
     const chemicalNames = Object.keys(fruits);
 
-    // если поле пустое → показываем все химикаты
     if (query.trim() === '') {
       setFilteredChemicals(chemicalNames);
       return;
@@ -152,8 +152,47 @@ function App() {
 
   console.log(filteredChemicals);
 
+
+
+
+
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const MainPage = () => {
+    return (
+      <div className={s.container}>
+        <header className={s.header}>I am header!</header>
+        <section className={s.section}>Hello world!</section>
+        <button onClick={handleOpenModal}>Открыть модальное окно</button>
+      </div>
+    );
+  };
+
   return (
-    <div className="app-container">
+    <>
+      <MainPage />
+      <ModalChemicalModal 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal} 
+      />
+    </>
+  );
+}
+
+export default App;
+
+
+
+
+/*     <div className="app-container">
       <Header />
       <div className="app-content">
         <aside className="filter-section">
@@ -181,8 +220,4 @@ function App() {
           filteredChemicals={filteredChemicals}
         />
       </div>
-    </div>
-  );
-}
-
-export default App;
+    </div> */

@@ -1,0 +1,43 @@
+.cultureSelect{
+display: flex;
+flex-direction: column;
+}
+
+.cultureSelect__label{
+padding-left: 20px;
+padding-bottom: 2px;
+color:  #5F5F5F;
+font-family: Rubik;
+font-weight: 400;
+font-style: Regular;
+font-size: 12px;
+line-height: 100%;
+letter-spacing: 0%;
+vertical-align: middle;
+
+}
+
+.cultureSelect__trigger{
+font-family: Rubik;
+font-weight: 400;
+font-style: Regular;
+font-size: 14px;
+line-height: 150%;
+letter-spacing: 0%;
+vertical-align: middle;
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 316px;
+height: 48px;
+border-width: 1px;
+opacity: 1;
+border-radius: 8px;
+gap: 4px;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 16px;
+ color: #989898;
+border: 1px solid #5F5F5F;
+cursor: pointer;
+}

@@ -1,0 +1,73 @@
+.cultureDropdown {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  max-height: 196px; 
+  border-width: 1px;
+  opacity: 1;
+  border-radius: 8px;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #B2B2B2;
+  box-shadow: -2px -2px 8px 0px #0000001F;
+  overflow-y: auto; 
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #65A454; 
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #558c45;
+  }
+}
+
+.cultureDropdown__checkbox {
+  appearance: none; 
+  width: 24px;
+  height: 24px;
+  opacity: 1;
+  border-radius: 4px;
+  border: 1px solid #B2B2B2;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0; 
+
+  &:checked {
+    background-color: #65A454;
+    border-color: #65A454;
+
+    &::after {
+      content: '✓';
+      position: absolute;
+      color: white;
+      font-size: 12px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.cultureDropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: Rubik;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
