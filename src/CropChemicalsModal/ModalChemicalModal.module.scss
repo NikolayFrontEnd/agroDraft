@@ -47,8 +47,13 @@
   border-radius: 50%;
   z-index: 10;
 }
-.modal__filters{
-    display: flex;
-    align-items: flex-end;
-    gap: 20px;
+
+.modal__filters {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.cultureSelectWrapper {
+  position: relative;
 }

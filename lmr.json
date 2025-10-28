@@ -1492,23 +1492,5 @@
     "blackberry": 0.01,
     "raspberry": 0.01,
     "blueberry": 0.01
-  },
-  "": {
-    "almond": "",
-    "hazelnut": "",
-    "nuts": "",
-    "apple": "",
-    "pear": "",
-    "quince": "",
-    "apricot": "",
-    "cherry": "",
-    "peach": "",
-    "plum": "",
-    "table_grapes": "",
-    "technical_grapes": "",
-    "strawberry": "",
-    "blackberry": "",
-    "raspberry": "",
-    "blueberry": ""
   }
 }

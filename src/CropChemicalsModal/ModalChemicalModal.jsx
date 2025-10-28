@@ -11,17 +11,18 @@ const ModalChemicalModal = ({ isOpen = false, onClose = () => {} }) => {
 
   return (
     <div className={s.overlay} onClick={onClose}>
-
       <div className={s.modal} onClick={(e) => e.stopPropagation()}>
         <div className={s.crossWrapper} onClick={onClose}>
-        <ModalCrossIcon />
+          <ModalCrossIcon />
         </div>
         <ModalInfo />
-        <div className = {s.modal__filters}>  
-        <SearchInput />
-        <CultureSelect />
-         </div>
-         <CultureDropdown/>
+        <div className={s.modal__filters}>  
+          <SearchInput />
+          <div className={s.cultureSelectWrapper}>
+            <CultureSelect />
+{/*             <CultureDropdown/>
+ */}          </div>
+        </div>
         <ChemicalTable />
       </div>
     </div>
