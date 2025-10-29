@@ -90,9 +90,8 @@ export const CheckboxBlock = ({
   );
 };
 
-function App() {
+/* function App() {
   const [selectedFruitsList, setSelectedFruitsList] = useState([]);
-  const [filteredChemicals, setFilteredChemicals] = useState([]);
 
   useEffect(() => {
     setFilteredChemicals(Object.keys(fruits));
@@ -127,8 +126,9 @@ function App() {
     'raspberry',
     'blueberry',
   ]; */
-
-  const handleChemicalSearch = (e) => {
+/*   const [filteredChemicals, setFilteredChemicals] = useState([]);
+ */
+  /* const handleChemicalSearch = (e) => {
     const query = e.target.value.toLowerCase();
     const chemicalNames = Object.keys(fruits);
 
@@ -149,8 +149,8 @@ function App() {
       console.log('Такого химиката нет');
     }
   };
-
-  console.log(filteredChemicals);
+ */
+/*   console.log(filteredChemicals);
 
 
 
@@ -165,7 +165,6 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
   const MainPage = () => {
     return (
       <div className={s.container}>
@@ -175,8 +174,31 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       </div>
     );
   };
-const chemicals = Object.keys(fruits);
+const [chemicals, setChemicals] = useState(Object.keys(fruits));
 const allFruits = chemicals.length > 0 ? Object.keys(fruits[chemicals[0]]) : [];
+
+const handleChemicalSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    const chemicalNames = Object.keys(fruits);
+
+    if (query.trim() === '') {
+      setChemicals(chemicalNames);
+      return;
+    }
+
+    const matches = chemicalNames.filter((name) =>
+      name.startsWith(query)
+    );
+
+    setChemicals(matches);
+
+    if (matches.length > 0) {
+      console.log('Найденные химикаты:', matches);
+    } else {
+      console.log('Такого химиката нет');
+    }
+  };
+console.log(chemicals)
   return (
     <>
       <MainPage />
@@ -186,12 +208,13 @@ const allFruits = chemicals.length > 0 ? Object.keys(fruits[chemicals[0]]) : [];
         chemicals={chemicals}
         allFruits={allFruits}
         fruitsData={fruits}
+        handleChemicalSearch={handleChemicalSearch}
       />
     </>
   );
 }
 
-export default App;
+export default App; */
 
 
 
@@ -225,3 +248,81 @@ export default App;
         />
       </div>
     </div> */
+
+
+
+
+
+function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [chemicals, setChemicals] = useState(Object.keys(fruits));
+  const [selectedFruits, setSelectedFruits] = useState([]); 
+  
+  const allFruits = Object.keys(fruits[Object.keys(fruits)[0]] || {});
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const MainPage = () => {
+    return (
+      <div className={s.container}>
+        <header className={s.header}>I am header!</header>
+        <section className={s.section}>Hello world!</section>
+        <button onClick={handleOpenModal}>Открыть модальное окно</button>
+      </div>
+    );
+  };
+
+  const handleChemicalSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    const chemicalNames = Object.keys(fruits);
+
+    if (query.trim() === '') {
+      setChemicals(chemicalNames);
+      return;
+    }
+
+    const matches = chemicalNames.filter((name) =>
+      name.toLowerCase().startsWith(query)
+    );
+
+    setChemicals(matches);
+  };
+
+  const toggleFruitSelection = (fruit) => {
+    setSelectedFruits((prev) => {
+      if (prev.includes(fruit)) {
+        return prev.filter((f) => f !== fruit);
+      } else {
+        return [...prev, fruit];
+      }
+    });
+  };
+  
+
+  const displayedFruits = selectedFruits.length > 0 ? selectedFruits : allFruits;
+  const isFruitSelectionDisabled = selectedFruits.length >= 5;
+  return (
+    <>
+      <MainPage />
+      <ModalChemicalModal 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal} 
+        chemicals={chemicals}
+        allFruits={allFruits} 
+        displayedFruits={displayedFruits} 
+        selectedFruits={selectedFruits} 
+        fruitsData={fruits}
+        handleChemicalSearch={handleChemicalSearch}
+        toggleFruitSelection={toggleFruitSelection}
+        isFruitSelectionDisabled = {isFruitSelectionDisabled}
+      />
+    </>
+  );
+}
+export default App;

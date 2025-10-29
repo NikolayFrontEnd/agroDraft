@@ -1,7 +1,7 @@
 import SearchIcon from "../../icons/Search"
 import s from './index.module.scss'
 
-export const SearchInput = () => {
+export const SearchInput = ({handleChemicalSearch}) => {
   return (
 <div className={s.search}>
       <SearchIcon  />
@@ -9,6 +9,7 @@ export const SearchInput = () => {
         className={s.search__input} 
         type="text"
         placeholder="активное вещество"
+        onChange = {handleChemicalSearch}
       />
 </div>
   );
