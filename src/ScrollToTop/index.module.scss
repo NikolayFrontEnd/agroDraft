@@ -1,0 +1,16 @@
+.circleArrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#000000;
+  width: 56px;
+  height: 56px;
+  padding: 12px;
+  gap: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 2000;
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ModalCrossIcon from "../icons/ModalCross";
 import { ChemicalTable } from "./ChemicalTable";
 import { CultureDropdown } from "./CultureDropdown";
@@ -6,6 +6,8 @@ import { CultureSelect } from "./CultureSelect";
 import s from "./ModalChemicalModal.module.scss";
 import { ModalInfo } from "./ModalInfo";
 import { SearchInput } from "./SearchInput";
+import { useScrollToTop } from "../hooks/useScrollToTop";
+import { ScrollToTopButton } from "../ScrollToTop";
 
 const ModalChemicalModal = ({ 
   isOpen = false, 
@@ -22,6 +24,8 @@ const ModalChemicalModal = ({
   if (!isOpen) return null; 
 
   const [open, setOpen] = useState(false);
+  const modalRef = useRef(null);
+  const { showButton, scrollToTop } = useScrollToTop(300, modalRef);
 
   const toggleFruitsDropdown = () => {
     setOpen(!open);
@@ -29,15 +33,17 @@ const ModalChemicalModal = ({
 
   return (
     <div className={s.overlay} onClick={onClose}>
-      <div className={s.modal} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={s.modal}
+        ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className={s.crossWrapper} onClick={onClose}>
           <ModalCrossIcon />
         </div>
         <ModalInfo />
         <div className={s.modal__filters}>  
-          <SearchInput 
-            handleChemicalSearch={handleChemicalSearch}
-          />
+          <SearchInput handleChemicalSearch={handleChemicalSearch} />
           <div className={s.cultureSelectWrapper}>
             <CultureSelect toggleFruitsDropdown={toggleFruitsDropdown} />
             {open && (
@@ -45,7 +51,7 @@ const ModalChemicalModal = ({
                 allFruits={allFruits}
                 selectedFruits={selectedFruits}
                 toggleFruitSelection={toggleFruitSelection}
-                isFruitSelectionDisabled = {isFruitSelectionDisabled }
+                isFruitSelectionDisabled={isFruitSelectionDisabled}
               />
             )}
           </div>
@@ -55,6 +61,7 @@ const ModalChemicalModal = ({
           allFruits={displayedFruits}
           fruitsData={fruitsData}
         />
+        <ScrollToTopButton visible={showButton} onClick={scrollToTop} />
       </div>
     </div>
   );
