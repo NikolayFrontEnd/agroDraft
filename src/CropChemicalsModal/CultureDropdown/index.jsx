@@ -12,9 +12,10 @@ export const CultureDropdown = ({
         <label className={s.cultureDropdown__item} key={fruit}>
           <input 
             className={s.cultureDropdown__checkbox} 
-            type="checkbox" 
-           onChange={() => toggleFruitSelection(fruit)}
-            disabled={isFruitSelectionDisabled &&   !selectedFruits.includes(fruit)}
+            type="checkbox"
+            checked={selectedFruits.includes(fruit)}       
+            onChange={() => toggleFruitSelection(fruit)}
+            disabled={isFruitSelectionDisabled && !selectedFruits.includes(fruit)}
           />
           {fruit}
         </label>

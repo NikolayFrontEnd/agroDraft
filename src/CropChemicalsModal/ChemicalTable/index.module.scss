@@ -2,6 +2,7 @@
   width: 100%;
   overflow-x: auto;
   margin-top: 20px;
+  border-radius: 12px;
 }
 
 .table {
@@ -87,7 +88,5 @@ border-bottom: 1px solid #e0e0e0;
 
 }
 
-.table__row:last-child .table__cell {
-  border-bottom: none;
-}
+
 

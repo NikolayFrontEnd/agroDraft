@@ -1,6 +1,7 @@
 import s from './index.module.scss';
 
 export const ChemicalTable = ({ chemicals = [], allFruits = [], fruitsData = {} }) => {
+  if (allFruits.length === 0 || chemicals.length === 0 ) return null;
   return (
     <div className={s.tableWrapper}>
       <div className={s.table}>
@@ -18,7 +19,7 @@ export const ChemicalTable = ({ chemicals = [], allFruits = [], fruitsData = {} 
               <div className={s.table__chemicalCell}>{chemical}</div>
               {allFruits.map((fruit) => (
                 <div key={fruit} className={s.table__cell}>
-                  {fruitsData[chemical][fruit] ?? 'Нет МДУ'}
+                  {fruitsData[chemical]?.[fruit] ?? 'Нет МДУ'}
                 </div>
               ))}
             </div>

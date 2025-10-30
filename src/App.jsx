@@ -261,6 +261,8 @@ function App() {
   const allFruits = Object.keys(fruits[Object.keys(fruits)[0]] || {});
 
   const handleOpenModal = () => {
+    setSelectedFruits([]);
+    setChemicals(Object.keys(fruits));
     setIsModalOpen(true);
   };
 
@@ -299,14 +301,15 @@ function App() {
       if (prev.includes(fruit)) {
         return prev.filter((f) => f !== fruit);
       } else {
+        if (prev.length >= 5) return prev;
         return [...prev, fruit];
       }
     });
   };
-  
 
-  const displayedFruits = selectedFruits.length > 0 ? selectedFruits : allFruits;
+  const displayedFruits = selectedFruits.length > 0 ? selectedFruits : [];
   const isFruitSelectionDisabled = selectedFruits.length >= 5;
+
   return (
     <>
       <MainPage />
@@ -320,7 +323,7 @@ function App() {
         fruitsData={fruits}
         handleChemicalSearch={handleChemicalSearch}
         toggleFruitSelection={toggleFruitSelection}
-        isFruitSelectionDisabled = {isFruitSelectionDisabled}
+        isFruitSelectionDisabled={isFruitSelectionDisabled}
       />
     </>
   );

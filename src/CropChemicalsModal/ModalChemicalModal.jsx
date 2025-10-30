@@ -29,7 +29,7 @@ const ModalChemicalModal = ({
 
   const toggleFruitsDropdown = () => {
     setOpen(!open);
-  };
+  }
 
   return (
     <div className={s.overlay} onClick={onClose}>
@@ -45,7 +45,7 @@ const ModalChemicalModal = ({
         <div className={s.modal__filters}>  
           <SearchInput handleChemicalSearch={handleChemicalSearch} />
           <div className={s.cultureSelectWrapper}>
-            <CultureSelect toggleFruitsDropdown={toggleFruitsDropdown} />
+            <CultureSelect toggleFruitsDropdown={toggleFruitsDropdown} isOpen={open}   selectedFruits={selectedFruits}/>
             {open && (
               <CultureDropdown 
                 allFruits={allFruits}
@@ -64,7 +64,7 @@ const ModalChemicalModal = ({
         <ScrollToTopButton visible={showButton} onClick={scrollToTop} />
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default ModalChemicalModal;
