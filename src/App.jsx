@@ -312,6 +312,7 @@ function App() {
 
   return (
     <>
+    <div>Hello world!</div>
       <MainPage />
       <ModalChemicalModal 
         isOpen={isModalOpen} 
