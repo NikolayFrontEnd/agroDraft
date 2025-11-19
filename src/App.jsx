@@ -313,6 +313,7 @@ function App() {
   return (
     <>
     <div>Hello world!</div>
+    <div>We learn how to fix git merging problems. LFG!!!</div>
       <MainPage />
       <ModalChemicalModal 
         isOpen={isModalOpen} 
