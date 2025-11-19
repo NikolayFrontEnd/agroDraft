@@ -313,6 +313,7 @@ function App() {
   return (
     <>
     <div>Hello world!</div>
+    <div>I will try to ruin the previos command! Hell yeah :)</div>
       <MainPage />
       <ModalChemicalModal 
         isOpen={isModalOpen} 
